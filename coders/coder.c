@@ -14,18 +14,15 @@ void    *coder_routine(void *arg)
 {
     t_coder *c;
     t_sim   *sim;
-    int     idx;
 
     c = (t_coder *)arg;
     sim = c->sim;
-    idx = c->id - 1;
     ft_usleep((c->id - 1) * 2);
     while (is_running(sim))
     {
         if (!coder_compile(c))
             break ;
-        if (!is_running(sim)
-            || sim->compile_count[idx] >= sim->nb_compiles_required)
+        if (!is_running(sim))
             break ;
         ft_log(sim, c->id, "is debugging");
         ft_usleep(sim->time_to_debug);
@@ -33,6 +30,11 @@ void    *coder_routine(void *arg)
             break ;
         ft_log(sim, c->id, "is refractoring");
         ft_usleep(sim->time_to_refractor);
+        if (sim->compile_count[c->id - 1] >= sim->nb_compiles_required)
+        {
+            mark_done(sim);
+            break ;
+        }
     }
     return (NULL);
 }

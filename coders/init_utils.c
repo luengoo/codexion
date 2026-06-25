@@ -51,6 +51,7 @@ int sim_init(t_sim *sim)
     pthread_mutex_init(&sim->log_mutex, NULL);
     pthread_mutex_init(&sim->running_mutex, NULL);
     sim->running = 1;
+    sim->finished = 0;
     sim->start_time = get_time_ms();
     if (!init_arrays(sim, n))
         return (0);

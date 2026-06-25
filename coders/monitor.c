@@ -2,16 +2,12 @@
 
 int check_all_done(t_sim *sim)
 {
-    int i;
+    int done;
 
-    i = 0;
-    while (i < sim->nb_coders)
-    {
-        if (sim->compile_count[i] < sim->nb_compiles_required)
-            return (0);
-        i++;
-    }
-    return (1);
+    pthread_mutex_lock(&sim->running_mutex);
+    done = (sim->finished >= sim->nb_coders);
+    pthread_mutex_unlock(&sim->running_mutex);
+    return (done);
 }
 
 static void stop_sim(t_sim *sim)
@@ -21,17 +17,11 @@ static void stop_sim(t_sim *sim)
     pthread_mutex_unlock(&sim->running_mutex);
 }
 
-
-static int  check_stop(t_sim *sim)
+void    mark_done(t_sim *sim)
 {
     pthread_mutex_lock(&sim->running_mutex);
-    if (!sim->running)
-    {
-        pthread_mutex_unlock(&sim->running_mutex);
-        return (1);
-    }
+    sim->finished++;
     pthread_mutex_unlock(&sim->running_mutex);
-    return (0);
 }
 
 static int  check_burnout_loop(t_sim *sim, long long now)
@@ -62,7 +52,7 @@ void    *monitor_routine(void *arg)
     while (1)
     {
         usleep(1000);
-        if (check_stop(sim))
+        if (!is_running(sim))
             break ;
         now = get_time_ms();
         if (check_burnout_loop(sim, now))

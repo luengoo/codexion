@@ -50,6 +50,7 @@ typedef struct s_sim
     pthread_mutex_t log_mutex;
     pthread_mutex_t running_mutex;
     int             running;
+    int             finished;
     long long       start_time;
     t_dongle        *dongles;
     int             *compile_count;
@@ -108,7 +109,6 @@ void        dongle_release(t_sim *sim, int dongle_idx);
 /*monitor.c*/
 void        *monitor_routine(void *arg);
 int         check_all_done(t_sim *sim);
-
-
+void        mark_done(t_sim *sim);
 
 #endif
