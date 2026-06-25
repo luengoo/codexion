@@ -70,7 +70,7 @@ int take_dongles_last(t_coder *c, t_request *l, t_request *r)
     dongle_acquire(sim, right, r);
     if (!is_running(sim))
         return (dongle_release(sim, right), 0);
-    ft_log(sim, c->id, "hast taken a dongle");
+    ft_log(sim, c->id, "has taken a dongle");
     dongle_acquire(sim, left, l);
     if (!is_running(sim))
     {
