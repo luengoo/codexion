@@ -1,5 +1,26 @@
 #include "codexion.h"
 
+int check_all_done(t_sim *sim)
+{
+    int i;
+
+    i = 0;
+    while (i < sim->nb_coders)
+    {
+        if (sim->compile_count[i] < sim->nb_compiles_required)
+            return (0);
+        i++;
+    }
+    return (1);
+}
+
+static void stop_sim(t_sim *sim)
+{
+    pthread_mutex_lock(&sim->running_mutex);
+    sim->running = 0;
+    pthread_mutex_unlock(&sim->running_mutex);
+}
+
 
 static int  check_stop(t_sim *sim)
 {
@@ -13,7 +34,7 @@ static int  check_stop(t_sim *sim)
     return (0);
 }
 
-static int  check_bournot_loop(t_sim *sim, long long now)
+static int  check_burnout_loop(t_sim *sim, long long now)
 {
     int         i;
     long long   since_last;
@@ -42,7 +63,7 @@ void    *monitor_routine(void *arg)
     {
         usleep(1000);
         if (check_stop(sim))
-            break
+            break ;
         now = get_time_ms();
         if (check_burnout_loop(sim, now))
             return (NULL);

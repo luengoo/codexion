@@ -22,10 +22,10 @@ t_heap  *heap_create(int capacity, int mode)
 
     h = malloc(sizeof(t_heap));
     if (!h)
-        return (NULL)
+        return (NULL);
     h->data = malloc(sizeof(t_request *) * capacity);
     if (!h->data)
-        return (free(h), NULL)
+        return (free(h), NULL);
     h->size = 0;
     h->capacity = capacity;
     h->mode = mode;

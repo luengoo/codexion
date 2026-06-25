@@ -55,7 +55,7 @@ t_request   *heap_pop(t_heap *h)
     int         best;
 
     if (h->size == 0)
-        return (NULL)
+        return (NULL);
     top = h->data[0];
     h->size--;
     h->data[0] = h->data[h->size];

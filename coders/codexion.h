@@ -64,16 +64,9 @@ typedef struct  s_coder
 
 
 /*parser.c*/
-static int  check_scheduler(char *argv, t_sim *sim);
-static int  value_parser(char **argv, long long *vals);
-static int  check_args(long long *vals, char **argv, t_sim *sim);
-static void sim_fill(t_sim *sim, long long *vals);
 int         arg_parser(int argc, char **argv, t_sim *sim);
 
 /*init_utils.c*/
-static int  init_arrays(t_sim *sim, int n);
-static void init_counters(t_sim *sim, int n);
-static int  init_dongles(t_sim *sim, int n);
 int         sim_init(t_sim *sim);
 void        cleanup_sim(t_sim *sim);
 
@@ -83,10 +76,7 @@ t_heap      *heap_create(int capacity, int mode);
 void        heap_destroy(t_heap *h);
 
 /*log.c*/
-static int  check_running(t_sim *sim);
-static void print_log(t_sim *sim, long long ts, int id, const char *msg);
 void        ft_log(t_sim *sim, int coder_id, const char *msg);
-static void set_stop_and_print(t_sim *sim, long long ts, int id);
 void        ft_log_burnout(t_sim *sim, int coder_id);
 
 /*utils.c*/
@@ -96,30 +86,29 @@ void        ft_usleep(long long ms);
 int	        ft_atoi_strict(const char *str, long long *out);
 
 /*scheduler_utils.c*/
-static void heap_swap(t_heap *h, int i, int j);
 void        heap_push(t_heap *h, t_request *req);
-static int  get_best_child(t_heap *h, int i, int left, int right);
 t_request   *heap_pop(t_heap *h);
 
 /*coder.c*/
 int         is_running(t_sim *sim);
 void        *coder_routine(void *arg);
-static void destroy_request(t_request *l, t_request *r);
-static int  acquire_dongles(t_coder *c, t_request *l, t_request *r);
 int         coder_compile(t_coder *c);
 
 /*coder_utils.c*/
 void        init_requests(t_coder *c, t_request *l, t_request *r);
-int         one_order_case(t_sim *sim, t_request *l);
+int         one_coder_case(t_sim *sim, t_request *l);
 void        do_compile(t_coder *c);
 int         take_dongles_normal(t_coder *c, t_request *l, t_request *r);
 int         take_dongles_last(t_coder *c, t_request *l, t_request *r);
 
 /*dongle.c*/
-static void set_timespec(struct timespec *ts, long long wait_ms);
-static void try_acquire(t_dongle *d, t_request *req, long long now);
 void        dongle_acquire(t_sim *sim, int dongle_idx, t_request *req);
 void        dongle_release(t_sim *sim, int dongle_idx);
+
+/*monitor.c*/
+void        *monitor_routine(void *arg);
+int         check_all_done(t_sim *sim);
+
 
 
 #endif

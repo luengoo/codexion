@@ -50,7 +50,7 @@ void    dongle_acquire(t_sim *sim, int dongle_idx, t_request *req)
     heap_push(d->queue, req);
     while(!req->granted)
     {
-        now = get_time_ms()
+        now = get_time_ms();
         try_acquire(d, req, now);
     }
     pthread_mutex_unlock(&d->mutex);

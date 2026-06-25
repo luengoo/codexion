@@ -15,11 +15,11 @@ void    init_requests(t_coder *c, t_request *l, t_request *r)
         + sim->time_to_burnout;
 }
 
-int one_order_case(t_sim *sim, t_request *l)
+int one_coder_case(t_sim *sim, t_request *l)
 {
     pthread_cond_init(&l->cond, NULL);
     ft_usleep(sim->time_to_burnout + 100);
-    pthread_cont_destroy(&l->cond);
+    pthread_cond_destroy(&l->cond);
     return (0);
 }
 

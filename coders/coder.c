@@ -16,7 +16,7 @@ void    *coder_routine(void *arg)
     t_sim   *sim;
     int     idx;
 
-    c = (t_coder *)arg
+    c = (t_coder *)arg;
     sim = c->sim;
     idx = c->id - 1;
     ft_usleep((c->id - 1) * 2);
@@ -37,7 +37,7 @@ void    *coder_routine(void *arg)
     return (NULL);
 }
 
-static void destroy_request(t_request *l, t_request *r)
+static void destroy_requests(t_request *l, t_request *r)
 {
     pthread_cond_destroy(&l->cond);
     pthread_cond_destroy(&r->cond);
