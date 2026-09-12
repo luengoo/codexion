@@ -34,7 +34,7 @@ All arguments are mandatory. `scheduler` must be `fifo` or `edf`.
 
 ```bash
 # 4 coders, burnout at 400ms, compile 200ms, debug 200ms, refactor 400ms, 5 compiles each, 0ms cooldown, FIFO
-./codexion 4 400 200 200 400 5 0 fifo
+./codexion 4 800 200 200 200 5 0 fifo
 
 # Same but EDF scheduler
 ./codexion 4 400 200 200 400 5 0 edf
