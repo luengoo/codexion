@@ -6,7 +6,7 @@
 /*   By: alluengo <alluengo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/12 13:52:16 by alluengo          #+#    #+#             */
-/*   Updated: 2026/09/12 16:01:12 by alluengo         ###   ########.fr       */
+/*   Updated: 2026/09/12 17:45:17 by alluengo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 static void	set_timespec(struct timespec *ts, long long wait_ms)
 {
-	clock_gettime(CLOCK_REALTIME, ts);
-	ts->tv_sec += wait_ms / 1000;
-	ts->tv_nsec += (wait_ms % 1000) * 1000000LL;
+	struct timeval	tv;
+
+	gettimeofday(&tv, NULL);
+	ts->tv_sec = tv.tv_sec + wait_ms / 1000;
+	ts->tv_nsec = tv.tv_usec * 1000LL + (wait_ms % 1000) * 1000000LL;
 	if (ts->tv_nsec >= 1000000000LL)
 	{
 		ts->tv_sec++;
@@ -37,7 +39,7 @@ static void	try_acquire(t_dongle *d, t_request *req, long long now)
 			d->in_use = 1;
 			req->granted = 1;
 			if (d->queue->size > 0)
-				pthread_cond_signal(&d->queue->data[0]->cond);
+				pthread_cond_broadcast(&d->queue->data[0]->cond);
 			return ;
 		}
 		wait_ms = d->aviable_at - now;
@@ -76,6 +78,6 @@ void	dongle_release(t_sim *sim, int dongle_idx)
 	d->in_use = 0;
 	d->aviable_at = get_time_ms() + sim->dongle_cooldown;
 	if (d->queue->size > 0)
-		pthread_cond_signal(&d->queue->data[0]->cond);
+		pthread_cond_broadcast(&d->queue->data[0]->cond);
 	pthread_mutex_unlock(&d->mutex);
 }

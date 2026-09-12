@@ -6,7 +6,7 @@
 /*   By: alluengo <alluengo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/12 13:51:13 by alluengo          #+#    #+#             */
-/*   Updated: 2026/09/12 13:52:05 by alluengo         ###   ########.fr       */
+/*   Updated: 2026/09/12 18:13:45 by alluengo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ static int	init_dongles(t_sim *sim, int n)
 		sim->dongles[i].in_use = 0;
 		sim->dongles[i].aviable_at = 0;
 		sim->dongles[i].queue = heap_create(n, sim->scheduler);
+		sim->nb_dongles_init = i + 1;
 		if (!sim->dongles[i].queue)
 			return (0);
 		i++;
@@ -63,12 +64,15 @@ int	sim_init(t_sim *sim)
 	pthread_mutex_init(&sim->running_mutex, NULL);
 	sim->running = 1;
 	sim->finished = 0;
+	if (sim->nb_compiles_required == 0)
+		sim->finished = n;
 	sim->start_time = get_time_ms();
+	sim->nb_dongles_init = 0;
 	if (!init_arrays(sim, n))
-		return (0);
+		return (cleanup_sim(sim), 0);
 	init_counters(sim, n);
 	if (!init_dongles(sim, n))
-		return (0);
+		return (cleanup_sim(sim), 0);
 	return (1);
 }
 
@@ -79,11 +83,8 @@ void	cleanup_sim(t_sim *sim)
 	if (!sim)
 		return ;
 	i = 0;
-	while (i < sim->nb_coders)
+	while (i < sim->nb_dongles_init)
 	{
-		pthread_mutex_lock(&sim->dongles[i].mutex);
-		sim->dongles[i].in_use = 0;
-		pthread_mutex_unlock(&sim->dongles[i].mutex);
 		pthread_mutex_destroy(&sim->dongles[i].mutex);
 		pthread_cond_destroy(&sim->dongles[i].cond);
 		if (sim->dongles[i].queue)

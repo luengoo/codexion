@@ -6,7 +6,7 @@
 /*   By: alluengo <alluengo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/12 13:54:00 by alluengo          #+#    #+#             */
-/*   Updated: 2026/09/12 14:01:53 by alluengo         ###   ########.fr       */
+/*   Updated: 2026/09/12 18:09:51 by alluengo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 
 # define FIFO 0
 # define EDF 1
+# define MAX_VALUE 2147483647
+# define MAX_CODERS 200
 
 typedef struct s_request
 {
@@ -52,6 +54,7 @@ typedef struct s_dongle
 typedef struct s_sim
 {
 	int				nb_coders;
+	int				nb_dongles_init;
 	long long		time_to_burnout;
 	long long		time_to_compile;
 	long long		time_to_debug;

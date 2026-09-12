@@ -6,7 +6,7 @@
 /*   By: alluengo <alluengo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/12 13:31:30 by alluengo          #+#    #+#             */
-/*   Updated: 2026/09/12 13:42:15 by alluengo         ###   ########.fr       */
+/*   Updated: 2026/09/12 18:02:48 by alluengo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ int	ft_atoi_strict(const char *str, long long *out)
 	while (str[i])
 	{
 		if (str[i] < '0' || str[i] > '9')
+			return (0);
+		if (result > (MAX_VALUE - (str[i] - '0')) / 10)
 			return (0);
 		result = result * 10 + (str[i] - '0');
 		i++;

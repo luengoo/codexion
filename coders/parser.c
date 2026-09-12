@@ -6,7 +6,7 @@
 /*   By: alluengo <alluengo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/12 13:46:06 by alluengo          #+#    #+#             */
-/*   Updated: 2026/09/12 13:47:33 by alluengo         ###   ########.fr       */
+/*   Updated: 2026/09/12 18:03:43 by alluengo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,10 @@ static int	value_parser(char **argv, long long *vals)
 
 static int	check_args(long long *vals, char **argv, t_sim *sim)
 {
-	if (vals[0] < 1)
+	if (vals[0] < 1 || vals[0] > MAX_CODERS)
 		return (fprintf(stderr,
-				"Error: number_of_coders must be >= 1\n"), 0);
+				"Error: number_of_coders must be between 1 and %d\n",
+				MAX_CODERS), 0);
 	if (!check_scheduler(argv[8], sim))
 		return (fprintf(stderr,
 				"Error: scheduler must be 'fifo' or 'edf'\n"), 0);

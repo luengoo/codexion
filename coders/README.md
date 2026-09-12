@@ -86,7 +86,7 @@ All `printf` calls are wrapped in `ft_log()` and `ft_log_burnout()`, which lock 
 - **`dongle[i].mutex`**: protects each dongle's state (`in_use`, `available_at`, `queue`). Coders lock this mutex before pushing their request into the heap or checking dongle availability.
 
 ### `pthread_cond_t` (per-request condition variable)
-Each `t_request` has its own `pthread_cond_t cond`. When a coder pushes its request into a dongle's heap, it calls `pthread_cond_wait(&req.cond, &dongle.mutex)` and sleeps. When the current dongle holder calls `dongle_release()`, it pops the next request from the heap and calls `pthread_cond_signal(&next_req->cond)` — waking only the correct next coder. This prevents the thundering herd problem where all waiters would wake up simultaneously.
+Each `t_request` has its own `pthread_cond_t cond`. When a coder pushes its request into a dongle's heap, it calls `pthread_cond_wait(&req.cond, &dongle.mutex)` and sleeps. When the current dongle holder calls `dongle_release()`, it pops the next request from the heap and calls `broadcast(&next_req->cond)` — waking only the correct next coder. This prevents the thundering herd problem where all waiters would wake up simultaneously.
 
 ### `pthread_cond_timedwait`
 Used when a coder is next in the queue but the dongle cooldown has not yet expired. Instead of busy-waiting, the coder computes the exact absolute `struct timespec` for `available_at` and sleeps until that moment. It is woken earlier if another signal arrives (e.g., if the simulation stops).
