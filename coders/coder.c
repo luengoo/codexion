@@ -6,7 +6,7 @@
 /*   By: alluengo <alluengo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/12 13:59:59 by alluengo          #+#    #+#             */
-/*   Updated: 2026/09/12 14:00:31 by alluengo         ###   ########.fr       */
+/*   Updated: 2026/09/12 17:25:54 by alluengo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	*coder_routine(void *arg)
 		ft_usleep(sim->time_to_debug);
 		if (!is_running(sim))
 			break ;
-		ft_log(sim, c->id, "is refractoring");
+		ft_log(sim, c->id, "is refactoring");
 		ft_usleep(sim->time_to_refractor);
 		if (sim->compile_count[c->id - 1] >= sim->nb_compiles_required)
 		{
@@ -72,19 +72,21 @@ int	coder_compile(t_coder *c)
 	t_sim		*sim;
 	t_request	l;
 	t_request	r;
+	int			ok;
 
 	sim = c->sim;
 	init_requests(c, &l, &r);
 	if (sim->nb_coders == 1)
-		return (one_coder_case(sim, &l));
-	if (!acquire_dongles(c, &l, &r))
+		ok = one_coder_case(sim, &l);
+	else if (!acquire_dongles(c, &l, &r))
+		ok = 0;
+	else
 	{
-		destroy_requests(&l, &r);
-		return (0);
+		do_compile(c);
+		dongle_release(sim, c->id % sim->nb_coders);
+		dongle_release(sim, c->id - 1);
+		ok = 1;
 	}
-	do_compile(c);
-	dongle_release(sim, c->id % sim->nb_coders);
-	dongle_release(sim, c->id - 1);
 	destroy_requests(&l, &r);
-	return (1);
+	return (ok);
 }

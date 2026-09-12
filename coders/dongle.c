@@ -6,7 +6,7 @@
 /*   By: alluengo <alluengo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/12 13:52:16 by alluengo          #+#    #+#             */
-/*   Updated: 2026/09/12 13:53:47 by alluengo         ###   ########.fr       */
+/*   Updated: 2026/09/12 16:01:12 by alluengo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ void	dongle_acquire(t_sim *sim, int dongle_idx, t_request *req)
 
 	d = &sim->dongles[dongle_idx];
 	pthread_mutex_lock(&d->mutex);
-	pthread_cond_init(&req->cond, NULL);
 	req->granted = 0;
 	heap_push(d->queue, req);
 	while (!req->granted)

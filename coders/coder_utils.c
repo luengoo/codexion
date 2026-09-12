@@ -6,7 +6,7 @@
 /*   By: alluengo <alluengo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/12 13:59:02 by alluengo          #+#    #+#             */
-/*   Updated: 2026/09/12 13:59:37 by alluengo         ###   ########.fr       */
+/*   Updated: 2026/09/12 16:01:51 by alluengo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	init_requests(t_coder *c, t_request *l, t_request *r)
 	t_sim	*sim;
 
 	sim = c->sim;
+	pthread_cond_init(&l->cond, NULL);
+	pthread_cond_init(&r->cond, NULL);
 	l->coder_id = c->id;
 	l->timestamp = get_time_ms();
 	l->deadline = sim->last_compile_start[c->id - 1]
@@ -29,9 +31,8 @@ void	init_requests(t_coder *c, t_request *l, t_request *r)
 
 int	one_coder_case(t_sim *sim, t_request *l)
 {
-	pthread_cond_init(&l->cond, NULL);
+	(void)l;
 	ft_usleep(sim->time_to_burnout + 100);
-	pthread_cond_destroy(&l->cond);
 	return (0);
 }
 
