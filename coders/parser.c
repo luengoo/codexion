@@ -55,7 +55,7 @@ static void	sim_fill(t_sim *sim, long long *vals)
 	sim->time_to_burnout = vals[1];
 	sim->time_to_compile = vals[2];
 	sim->time_to_debug = vals[3];
-	sim->time_to_refractor = vals[4];
+	sim->time_to_refactor = vals[4];
 	sim->nb_compiles_required = (int)vals[5];
 	sim->dongle_cooldown = vals[6];
 }

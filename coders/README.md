@@ -10,7 +10,7 @@ This is a thread-managing focused program, using mutex and controling the data r
 Imagine a program is an office. Well, the *threads* can be interpreted as the people inside working all together in a single project. If one of them uses the printer, the next person that wants to use it must wait. That is, in programing, what is meant for the *MUTEX*.
 
 Here, we use dongles and programmers. A X number of programmers seat in a round table. Each person have 1 dongle, but, to complete the compilation, they need 2. They must coordinate, prevent interblocking and starving.
-Each person must compile, debug and refractor. While they compile, they hold the dongles, whenever they finish compile, the dongles are released. Each dongle has a cooldown time that coders must respect. The simulation stops whenever someone burnsout, that can happen if that coder doesn't compile on time.
+Each person must compile, debug and refactor. While they compile, they hold the dongles, whenever they finish compile, the dongles are released. Each dongle has a cooldown time that coders must respect. The simulation stops whenever someone burnsout, that can happen if that coder doesn't compile on time.
 
 The simulation also ends normally when every coder has compiled at least `number_of_compiles_required` times.
 
@@ -25,7 +25,7 @@ make
 ### **Execution**
 
 ```bash
-./codexion nb_coders time_to_burnout time_to_compile time_to_debug time_to_refractor nb_compiles_required dongle_cooldown scheduler
+./codexion nb_coders time_to_burnout time_to_compile time_to_debug time_to_refactor nb_compiles_required dongle_cooldown scheduler
 ```
 
 All arguments are mandatory. `scheduler` must be `fifo` or `edf`.

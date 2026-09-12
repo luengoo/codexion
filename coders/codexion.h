@@ -55,7 +55,7 @@ typedef struct s_sim
 	long long		time_to_burnout;
 	long long		time_to_compile;
 	long long		time_to_debug;
-	long long		time_to_refractor;
+	long long		time_to_refactor;
 	long long		nb_compiles_required;
 	long long		dongle_cooldown;
 	int				scheduler;

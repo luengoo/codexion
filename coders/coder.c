@@ -41,7 +41,7 @@ void	*coder_routine(void *arg)
 		if (!is_running(sim))
 			break ;
 		ft_log(sim, c->id, "is refactoring");
-		ft_usleep(sim->time_to_refractor);
+		ft_usleep(sim->time_to_refactor);
 		if (sim->compile_count[c->id - 1] >= sim->nb_compiles_required)
 		{
 			mark_done(sim);
