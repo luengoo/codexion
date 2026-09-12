@@ -6,7 +6,7 @@
 /*   By: alluengo <alluengo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/12 13:54:00 by alluengo          #+#    #+#             */
-/*   Updated: 2026/09/12 13:58:50 by alluengo         ###   ########.fr       */
+/*   Updated: 2026/09/12 14:01:53 by alluengo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct s_request
 	int				coder_id;
 	long long		timestamp;
 	long long		deadline;
-	in				granted;
+	int				granted;
 	pthread_cond_t	cond;
 }	t_request;
 
