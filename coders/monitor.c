@@ -6,7 +6,7 @@
 /*   By: alluengo <alluengo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/12 13:47:49 by alluengo          #+#    #+#             */
-/*   Updated: 2026/09/12 17:33:06 by alluengo         ###   ########.fr       */
+/*   Updated: 2026/09/12 18:20:24 by alluengo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,14 @@ static int	check_burnout_loop(t_sim *sim, long long now)
 	while (i < sim->nb_coders)
 	{
 		if (sim->compile_count[i] < sim->nb_compiles_required)
+		{
+			since_last = now - sim->last_compile_start[i];
+			if (since_last >= sim->time_to_burnout)
 			{
-				since_last = now - sim->last_compile_start[i];
-				if (since_last >= sim->time_to_burnout)
-				{
-					ft_log_burnout(sim, i + 1);
-					return (1);
-				}
+				ft_log_burnout(sim, i + 1);
+				return (1);
 			}
+		}
 		i++;
 	}
 	return (0);
