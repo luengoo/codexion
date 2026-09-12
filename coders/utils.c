@@ -1,26 +1,38 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alluengo <alluengo@student.42madrid.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/09/12 13:31:30 by alluengo          #+#    #+#             */
+/*   Updated: 2026/09/12 13:42:15 by alluengo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "codexion.h"
 
-long long   get_time_ms(void)
+long long	get_time_ms(void)
 {
-    struct timeval  tv;
+	struct timeval	tv;
 
-    gettimeofday(&tv, NULL);
-    return ((long long)tv.tv_sec * 1000LL
-            + (long long)tv.tv_usec / 1000LL);
+	gettimeofday(&tv, NULL);
+	return ((long long)tv.tv_sec * 1000LL
+		+ (long long)tv.tv_usec / 1000LL);
 }
 
-long long   elapsed_ms(long long start)
+long long	elapsed_ms(long long start)
 {
-    return (get_time_ms()- start);
+	return (get_time_ms() - start);
 }
 
-void    ft_usleep(long long ms)
+void	ft_usleep(long long ms)
 {
-    long long   start;
+	long long	start;
 
-    start = get_time_ms();
-    while (get_time_ms() - start < ms)
-        usleep(100);
+	start = get_time_ms();
+	while (get_time_ms() - start < ms)
+		usleep(100);
 }
 
 int	ft_atoi_strict(const char *str, long long *out)

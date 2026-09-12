@@ -1,41 +1,53 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   scheduler.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: alluengo <alluengo@student.42madrid.com    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/09/12 13:45:09 by alluengo          #+#    #+#             */
+/*   Updated: 2026/09/12 13:45:44 by alluengo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "codexion.h"
 
-int scheduler_compare(t_heap *h, t_request *a, t_request *b)
+int	scheduler_compare(t_heap *h, t_request *a, t_request *b)
 {
-    if (h->mode == FIFO)
-    {
-        if (a->timestamp != b->timestamp)
-            return(a->timestamp < b->timestamp);
-        return (a->coder_id < b->coder_id);
-    }
-    else
-    {
-        if (a->deadline != b->deadline)
-            return (a->deadline < b->deadline);
-        return (a->coder_id > b->coder_id);
-    }
+	if (h->mode == FIFO)
+	{
+		if (a->timestamp != b->timestamp)
+			return (a->timestamp < b->timestamp);
+		return (a->coder_id < b->coder_id);
+	}
+	else
+	{
+		if (a->deadline != b->deadline)
+			return (a->deadline < b->deadline);
+		return (a->coder_id > b->coder_id);
+	}
 }
 
-t_heap  *heap_create(int capacity, int mode)
+t_heap	*heap_create(int capacity, int mode)
 {
-    t_heap  *h;
+	t_heap	*h;
 
-    h = malloc(sizeof(t_heap));
-    if (!h)
-        return (NULL);
-    h->data = malloc(sizeof(t_request *) * capacity);
-    if (!h->data)
-        return (free(h), NULL);
-    h->size = 0;
-    h->capacity = capacity;
-    h->mode = mode;
-    return (h);
+	h = malloc(sizeof(t_heap));
+	if (!h)
+		return (NULL);
+	h->data = malloc(sizeof(t_request *) * capacity);
+	if (!h->data)
+		return (free(h), NULL);
+	h->size = 0;
+	h->capacity = capacity;
+	h->mode = mode;
+	return (h);
 }
 
-void    heap_destroy(t_heap *h)
+void	heap_destroy(t_heap *h)
 {
-    if (!h)
-        return ;
-    free(h->data);
-    free(h);
+	if (!h)
+		return ;
+	free(h->data);
+	free(h);
 }
