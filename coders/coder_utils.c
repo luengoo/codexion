@@ -6,7 +6,7 @@
 /*   By: alluengo <alluengo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/12 13:59:02 by alluengo          #+#    #+#             */
-/*   Updated: 2026/09/12 17:53:15 by alluengo         ###   ########.fr       */
+/*   Updated: 2026/09/12 18:17:27 by alluengo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	init_requests(t_coder *c, t_request *l, t_request *r)
 
 int	one_coder_case(t_sim *sim, t_request *l)
 {
-	dongle_acquire(sim, 0, 1);
+	dongle_acquire(sim, 0, l);
 	ft_log(sim, l->coder_id, "has taken a dongle");
 	while (is_running(sim))
 		ft_usleep(1);
