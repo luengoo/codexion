@@ -6,7 +6,7 @@
 /*   By: alluengo <alluengo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/12 13:51:13 by alluengo          #+#    #+#             */
-/*   Updated: 2026/09/12 18:13:45 by alluengo         ###   ########.fr       */
+/*   Updated: 2026/09/16 15:39:36 by alluengo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,11 @@ int	sim_init(t_sim *sim)
 	sim->running = 1;
 	sim->finished = 0;
 	if (sim->nb_compiles_required == 0)
-		sim->finished = n;
+	{
+		sim->running = 0;
+		sim->finished = n;	
+	}
+
 	sim->start_time = get_time_ms();
 	sim->nb_dongles_init = 0;
 	if (!init_arrays(sim, n))

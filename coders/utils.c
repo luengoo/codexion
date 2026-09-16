@@ -6,7 +6,7 @@
 /*   By: alluengo <alluengo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/12 13:31:30 by alluengo          #+#    #+#             */
-/*   Updated: 2026/09/12 18:02:48 by alluengo         ###   ########.fr       */
+/*   Updated: 2026/09/16 15:37:22 by alluengo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,12 @@ void	ft_usleep(long long ms)
 
 	start = get_time_ms();
 	while (get_time_ms() - start < ms)
+	{
+		if (!is_running(sim))
+			return ;
 		usleep(100);
+	}
+
 }
 
 int	ft_atoi_strict(const char *str, long long *out)

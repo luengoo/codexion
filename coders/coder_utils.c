@@ -6,7 +6,7 @@
 /*   By: alluengo <alluengo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/12 13:59:02 by alluengo          #+#    #+#             */
-/*   Updated: 2026/09/12 18:17:27 by alluengo         ###   ########.fr       */
+/*   Updated: 2026/09/16 15:42:45 by alluengo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,14 @@ void	do_compile(t_coder *c)
 	t_sim	*sim;
 
 	sim = c->sim;
+	pthread_mutex_lock(&sim->running_mutex);
 	sim->last_compile_start[c->id - 1] = get_time_ms();
+	pthread_mutex_unlock(&sim->running_mutex);
 	ft_log(sim, c->id, "is compiling");
-	ft_usleep(sim->time_to_compile);
+	ft_usleep(sim, sim->time_to_compile);
+	pthread_mutex_lock(&sim->running_mutex);
 	sim->compile_count[c->id - 1]++;
+	pthread_mutex_unlock(&sim->running_mutex);
 }
 
 int	take_dongles_normal(t_coder *c, t_request *l, t_request *r)
