@@ -6,7 +6,7 @@
 /*   By: alluengo <alluengo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/12 13:31:30 by alluengo          #+#    #+#             */
-/*   Updated: 2026/09/16 15:37:22 by alluengo         ###   ########.fr       */
+/*   Updated: 2026/09/16 15:53:27 by alluengo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ long long	elapsed_ms(long long start)
 	return (get_time_ms() - start);
 }
 
-void	ft_usleep(long long ms)
+void	ft_usleep(t_sim *sim, long long ms)
 {
 	long long	start;
 

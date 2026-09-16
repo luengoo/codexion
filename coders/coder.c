@@ -6,7 +6,7 @@
 /*   By: alluengo <alluengo@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/12 13:59:59 by alluengo          #+#    #+#             */
-/*   Updated: 2026/09/12 17:25:54 by alluengo         ###   ########.fr       */
+/*   Updated: 2026/09/16 15:56:02 by alluengo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	*coder_routine(void *arg)
 
 	c = (t_coder *)arg;
 	sim = c->sim;
-	ft_usleep((c->id - 1) * 2);
+	ft_usleep(sim, (c->id - 1) * 2);
 	while (is_running(sim))
 	{
 		if (!coder_compile(c))
@@ -37,11 +37,11 @@ void	*coder_routine(void *arg)
 		if (!is_running(sim))
 			break ;
 		ft_log(sim, c->id, "is debugging");
-		ft_usleep(sim->time_to_debug);
+		ft_usleep(sim, sim->time_to_debug);
 		if (!is_running(sim))
 			break ;
 		ft_log(sim, c->id, "is refactoring");
-		ft_usleep(sim->time_to_refactor);
+		ft_usleep(sim, sim->time_to_refactor);
 		if (sim->compile_count[c->id - 1] >= sim->nb_compiles_required)
 		{
 			mark_done(sim);
