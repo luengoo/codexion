@@ -1,6 +1,6 @@
-# 💽🖥💾💻CODEXION💻💾🖥💽
+*Este proyecto ha sido creado como parte del currículo de 42 por alluengo*
 
-*Este proyecto ha sido creado como parte del currículum de 42 por alluengo*
+# 💽🖥💾💻CODEXION💻💾🖥💽
 
 ## **Description**
 Welcome to my Codexion 42 project!
@@ -33,11 +33,11 @@ All arguments are mandatory. `scheduler` must be `fifo` or `edf`.
 ### **Examples**
 
 ```bash
-# 4 coders, burnout at 400ms, compile 200ms, debug 200ms, refactor 400ms, 5 compiles each, 0ms cooldown, FIFO
+# 4 coders, burnout at 800ms, compile 200ms, debug 200ms, refactor 200ms, 5 compiles each, 0ms cooldown, FIFO
 ./codexion 4 800 200 200 200 5 0 fifo
 
 # Same but EDF scheduler
-./codexion 4 400 200 200 400 5 0 edf
+./codexion 4 800 200 200 200 5 0 edf
 
 # 1 coder (no deadlock possible)
 ./codexion 1 800 200 200 200 3 50 fifo
